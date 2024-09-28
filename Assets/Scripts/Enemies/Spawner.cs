@@ -15,6 +15,7 @@ public class Spawner : MonoBehaviour
     }
 
     private IEnumerator Start()
+
     {
         while (!destroyCancellationToken.IsCancellationRequested)
         {
