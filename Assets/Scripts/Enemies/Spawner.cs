@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private int spawnsPerPeriod = 10;
     [SerializeField] private float frequency = 30;
     [SerializeField] private float period = 0;
+    [SerializeField] private EnemyPool enemyPool;
 
     private void OnEnable()
     {
@@ -22,6 +23,7 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < spawnsPerPeriod; i++)
             {
+                //Enemy clonedObject = enemyPool.GetFromPool();
                 Enemy clonedObject = enemyPrefab.Clone(transform.position, transform.rotation) as Enemy;
                 //Instantiate(prefab, transform.position, transform.rotation);
             }

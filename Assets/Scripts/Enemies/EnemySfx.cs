@@ -58,7 +58,7 @@ namespace Enemies
 
         private AudioPlayer SpawnSource(AudioPlayer prefab)
         {
-            return audioSourcePrefab.Clone(transform.position, transform.rotation);
+            return audioSourcePrefab.Clone(transform.position, transform.rotation) as AudioPlayer;
         }
 
     }

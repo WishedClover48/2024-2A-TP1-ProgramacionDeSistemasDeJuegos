@@ -6,9 +6,9 @@ using UnityEngine.AI;
 namespace Enemies
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Enemy : MonoBehaviour
+    public class Enemy : MonoBehaviour, IClone
     {
-        [SerializeField] private NavMeshAgent agent;
+        [SerializeField] public NavMeshAgent agent;
         [SerializeField] private GameObject enemyPrefab;
         public event Action OnSpawn = delegate { };
         public event Action OnDeath = delegate { };
@@ -33,24 +33,32 @@ namespace Enemies
             healthPoints.SetMaxHP(maxHP);
             healthPoints.AddOnDeath(Die);
             buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
+            if (buildingManager == null) 
+            {
+                GetBuilding();
+            }
             townCenter = buildingManager.GiveBuilding();
             if (townCenter == null)
             {
                 Debug.LogError($"{name}: Found no {nameof(townCenter)}!! :(");
                 return;
             }
-
             destination = townCenter._transform.position;
             destination.y = transform.position.y;
             agent.SetDestination(destination);
             StartCoroutine(AlertSpawn());
         }
-
+        private IEnumerator GetBuilding()
+        {
+            yield return null;
+            buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
+        }
         private IEnumerator AlertSpawn()
         {
             //Waiting one frame because event subscribers could run their onEnable after us.
             yield return null;
             OnSpawn();
+            
         }
 
         private void Update()

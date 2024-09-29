@@ -1692,6 +1692,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: enemyPool
+      value: 
+      objectReference: {fileID: 913751506}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
       value: 1
       objectReference: {fileID: 0}
@@ -7369,6 +7373,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4508691648621678, guid: a25996a7d0674de40a8273b54b50aa7b, type: 3}
   m_PrefabInstance: {fileID: 908370649}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &913751505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 913751507}
+  - component: {fileID: 913751506}
+  m_Layer: 0
+  m_Name: EnemyPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &913751506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913751505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ec142a9fcb3d4042829d62f31d84131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectPrefab: {fileID: 6512775222602955904, guid: a368a0d99f3fb7c4cadb882e3ded1d2d, type: 3}
+  initialPoolSize: 100
+  _initialPosition: {x: 0, y: 0, z: 0}
+  _initialRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!4 &913751507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913751505}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 208.52112, y: 157.4248, z: 42.21523}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &914755244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11795,6 +11847,10 @@ PrefabInstance:
       propertyPath: period
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: enemyPool
+      value: 
+      objectReference: {fileID: 913751506}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
       value: 0
@@ -16284,6 +16340,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: enemyPool
+      value: 
+      objectReference: {fileID: 913751506}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
       value: 0
       objectReference: {fileID: 0}
@@ -16954,6 +17014,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: enemyPool
+      value: 
+      objectReference: {fileID: 913751506}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
       value: 2.5
       objectReference: {fileID: 0}
@@ -17032,3 +17096,4 @@ SceneRoots:
   - {fileID: 1754892840}
   - {fileID: 963659492}
   - {fileID: 2115847855}
+  - {fileID: 913751507}
