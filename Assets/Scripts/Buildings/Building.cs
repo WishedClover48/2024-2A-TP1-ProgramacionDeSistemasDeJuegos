@@ -3,21 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+public class Building : MonoBehaviour, IBuilding
 {
 
     [SerializeField] int maxHP = 100;
     [SerializeField] float respawnTime = 10;
     [SerializeField] MeshRenderer meshRenderer;
-    private HealthPoints HealthPoints = new HealthPoints(100);
-    private bool isAlive = true;
-
+    public HealthPoints HealthPoints = new HealthPoints(100);
+    public bool _isAlive { get; set; }
+    public Transform _transform { get; set; }
 
     private void OnEnable()
     {
         HealthPoints.SetMaxHP(maxHP);
         HealthPoints.AddOnDeath(Dies);
-        isAlive = true;
+        _isAlive = true;
+        _transform = transform;
     }
 
     [ContextMenu("Kill test")]
@@ -27,10 +28,10 @@ public class Building : MonoBehaviour
     }
     public void Dies()
     {
-        StartCoroutine(Respawn(respawnTime));
         HealthPoints.RemoveOnDeath(Dies);
-        isAlive = false;
+        _isAlive = false;
         meshRenderer.enabled = false;
+        StartCoroutine(Respawn(respawnTime));
     }
     IEnumerator Respawn(float timer)
     {

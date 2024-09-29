@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Gracias profe por este script ;)
 namespace HealthSystem
 {
     public delegate void HealthPointsChangedEvent(int before, int after);

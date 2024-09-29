@@ -11,7 +11,14 @@ namespace Enemies
         [SerializeField] private NavMeshAgent agent;
         public event Action OnSpawn = delegate { };
         public event Action OnDeath = delegate { };
-    
+        BuildingManager buildingManager;
+        Building townCenter;
+        Vector3 destination;
+        int maxHP = 100;
+        HealthPoints healthPoints = new HealthPoints(100);
+
+
+
         private void Reset() => FetchComponents();
 
         private void Awake() => FetchComponents();
@@ -23,15 +30,17 @@ namespace Enemies
 
         private void OnEnable()
         {
-            //Is this necessary?? We're like, searching for it from every enemy D:
-            var townCenter = GameObject.FindGameObjectWithTag("TownCenter");
+            healthPoints.SetMaxHP(maxHP);
+            healthPoints.AddOnDeath(Die);
+            buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
+            townCenter = buildingManager.GiveBuilding();
             if (townCenter == null)
             {
                 Debug.LogError($"{name}: Found no {nameof(townCenter)}!! :(");
                 return;
             }
 
-            var destination = townCenter.transform.position;
+            destination = townCenter._transform.position;
             destination.y = transform.position.y;
             agent.SetDestination(destination);
             StartCoroutine(AlertSpawn());
@@ -46,18 +55,33 @@ namespace Enemies
 
         private void Update()
         {
+            if (!townCenter._isAlive)
+            {
+                townCenter = buildingManager.GiveBuilding();
+                destination = townCenter._transform.position;
+                destination.y = transform.position.y;
+                agent.SetDestination(destination);
+            }
             if (agent.hasPath
                 && Vector3.Distance(transform.position, agent.destination) <= agent.stoppingDistance)
             {
                 Debug.Log($"{name}: I'll die for my people!");
-                Die();
+                healthPoints.Kill();
             }
         }
 
         private void Die()
         {
+            healthPoints.RemoveOnDeath(Die);
+            if(townCenter.HealthPoints != null) 
+            { 
+                townCenter.HealthPoints.TakeDamage(20);
+            }
             OnDeath();
             Destroy(gameObject);
         }
+    
+
+    
     }
 }
