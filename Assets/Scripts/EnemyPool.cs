@@ -13,44 +13,49 @@ public class EnemyPool : MonoBehaviour
     // The pool of objects
     private Queue<Enemy> pool = new Queue<Enemy>();
 
-    // The initial size of the pool
-    public int initialPoolSize = 50;
-    public Vector3 _initialPosition;
-    public Quaternion _initialRotation;
-
     // PreLoad is called when the script instance is being loaded
     private void Awake()
     {
         ServiceLocator.Instance.RegisterService(this);
-        // Pre-instantiate the pool with inactive objects
-        for (int i = 0; i < initialPoolSize; i++)
-        {
-            Enemy obj = objectPrefab.Clone(_initialPosition,_initialRotation) as Enemy;
-            obj.enabled = false;  // Disable it initially
-            pool.Enqueue(obj);
-        }
     }
 
     // Method to get an object from the pool
-    public Enemy GetFromPool()
+    public Enemy GetFromPool(Vector3 position, Quaternion rotation)
     {
+        if (objectPrefab == null)
+        {
+            Debug.LogError("objectPrefab is not assigned in the EnemyPool!");
+            return null;
+        }
+        Enemy obj;
         if (pool.Count > 0)
         {
-            Enemy obj = pool.Dequeue();
-            obj.enabled = true;  // Enable the object before returning
-            return obj;
+            obj = pool.Dequeue();
         }
         else
         {
-            // If the pool is empty, create a new object and return it
-            Enemy obj = objectPrefab.Clone(_initialPosition, _initialRotation) as Enemy;
-            return obj;
+            // If the pool is empty, create a new object
+            obj = objectPrefab.Clone(position, rotation);
+
+            if (obj == null)
+            {
+                Debug.LogError("Failed to instantiate a new Enemy from the objectPrefab!");
+                return null;
+            }
         }
+
+        obj.gameObject.SetActive(true);  // Enable the object before returning
+        return obj;
     }
 
     // Method to return an object back to the pool
     public void ReturnToPool(Enemy obj)
     {
+        if (obj == null)
+        {
+            Debug.LogError("Cannot return a null object to the pool!");
+            return;
+        }
         obj.gameObject.SetActive(false);  // Disable the object
         pool.Enqueue(obj);  // Add it back to the pool
     }

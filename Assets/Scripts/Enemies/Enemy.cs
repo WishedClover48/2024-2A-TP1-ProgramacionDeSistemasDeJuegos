@@ -6,7 +6,7 @@ using UnityEngine.AI;
 namespace Enemies
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Enemy : MonoBehaviour, IClone
+    public class Enemy : MonoBehaviour
     {
         [SerializeField] public NavMeshAgent agent;
         [SerializeField] private GameObject enemyPrefab;
@@ -17,7 +17,7 @@ namespace Enemies
         Vector3 destination;
         int maxHP = 100;
         HealthPoints healthPoints = new HealthPoints(100);
-        private int damage = 5;
+        private int damage = 10;
 
         private void Reset() => FetchComponents();
 
@@ -35,7 +35,7 @@ namespace Enemies
             buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
             if (buildingManager == null) 
             {
-                GetBuilding();
+                Destroy(this);
             }
             townCenter = buildingManager.GiveBuilding();
             if (townCenter == null)
@@ -47,11 +47,6 @@ namespace Enemies
             destination.y = transform.position.y;
             agent.SetDestination(destination);
             StartCoroutine(AlertSpawn());
-        }
-        private IEnumerator GetBuilding()
-        {
-            yield return null;
-            buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
         }
         private IEnumerator AlertSpawn()
         {
@@ -88,10 +83,10 @@ namespace Enemies
             OnDeath();
             Destroy(gameObject);
         }
-        public object Clone(Vector3 position, Quaternion rotation)
+        public Enemy Clone(Vector3 position, Quaternion rotation)
         {
             GameObject clonedObject = Instantiate(gameObject, position, rotation);
-            return clonedObject;
+            return clonedObject.GetComponent<Enemy>();
         }
     }
 }

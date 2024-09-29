@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Audio
 {
     [RequireComponent(typeof(AudioClip))]
-    public class AudioPlayer : MonoBehaviour, IClone
+    public class AudioPlayer : MonoBehaviour
     {
         [SerializeField] private OnFinishAction finishAction;
         private AudioSource _source;
@@ -53,7 +53,7 @@ namespace Audio
             gameObject.SetActive(false);
         }
 
-        public object Clone(Vector3 position, Quaternion rotation)
+        public AudioPlayer Clone(Vector3 position, Quaternion rotation)
         {
             AudioPlayer clonedObject = Instantiate(this, position, rotation);
             return clonedObject;

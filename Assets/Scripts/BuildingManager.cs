@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class BuildingManager : MonoBehaviour 
 {
-    private GameObject[] _buildingGameObjects;
+    [SerializeField] private GameObject[] _buildingGameObjects;
     private List<Building> _buildingScripts = new List<Building>();
 
     public void OnEnable() 
     {
         ServiceLocator.Instance.RegisterService(this);
-        _buildingGameObjects = GameObject.FindGameObjectsWithTag("TownCenter");
+        //_buildingGameObjects = GameObject.FindGameObjectsWithTag("TownCenter");
         foreach (GameObject building in _buildingGameObjects) 
         {
             Building buildingScript = building.GetComponent<Building>();
