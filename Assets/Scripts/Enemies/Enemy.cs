@@ -18,11 +18,18 @@ namespace Enemies
         int maxHP = 100;
         HealthPoints healthPoints = new HealthPoints(100);
         private int damage = 10;
+        private EnemyPool enemyPool;
+
 
         private void Reset() => FetchComponents();
 
-        private void Awake() => FetchComponents();
-    
+        private void Awake() 
+        {
+            FetchComponents();
+            buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
+            enemyPool = ServiceLocator.Instance.GetService<EnemyPool>();
+        }
+
         private void FetchComponents()
         {
             agent ??= GetComponent<NavMeshAgent>();
@@ -32,10 +39,9 @@ namespace Enemies
         {
             healthPoints.SetMaxHP(maxHP);
             healthPoints.AddOnDeath(Die);
-            buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
             if (buildingManager == null) 
             {
-                Destroy(this);
+                buildingManager = ServiceLocator.Instance.GetService<BuildingManager>();
             }
             townCenter = buildingManager.GiveBuilding();
             if (townCenter == null)
@@ -81,7 +87,14 @@ namespace Enemies
                 townCenter.HealthPoints.TakeDamage(damage);
             }
             OnDeath();
-            Destroy(gameObject);
+            if(enemyPool != null)
+            {
+                enemyPool.ReturnToPool(this);
+            }
+            else 
+            { 
+                Destroy(gameObject);
+            }
         }
         public Enemy Clone(Vector3 position, Quaternion rotation)
         {

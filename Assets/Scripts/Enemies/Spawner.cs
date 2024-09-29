@@ -26,11 +26,22 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < spawnsPerPeriod; i++)
             {
-                Enemy clonedObject = enemyPool.GetFromPool(transform.position, transform.rotation);
+                // Randomize spawn positions within a certain range around the spawner in order to avoid enemies getting stuck.
+                Vector3 randomOffset = new Vector3(
+                    UnityEngine.Random.Range(-5f, 5f),
+                    0,  // Keep the Y position consistent
+                    UnityEngine.Random.Range(-5f, 5f)
+                );
+
+                Vector3 spawnPosition = transform.position + randomOffset;
+                Quaternion spawnRotation = transform.rotation;
+
+                Enemy clonedObject = enemyPool.GetFromPool(spawnPosition, spawnRotation);
                 if (clonedObject == null)
                 {
                     Debug.LogError("Failed to spawn enemy from the pool!");
                 }
+                clonedObject.transform.parent = transform;
             }
 
             yield return new WaitForSeconds(period);

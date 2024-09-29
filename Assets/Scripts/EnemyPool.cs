@@ -57,6 +57,7 @@ public class EnemyPool : MonoBehaviour
             return;
         }
         obj.gameObject.SetActive(false);  // Disable the object
+        obj.gameObject.transform.SetParent(transform);
         pool.Enqueue(obj);  // Add it back to the pool
     }
 }
