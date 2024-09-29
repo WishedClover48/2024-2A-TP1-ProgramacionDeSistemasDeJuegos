@@ -17,8 +17,6 @@ namespace Enemies
         int maxHP = 100;
         HealthPoints healthPoints = new HealthPoints(100);
 
-
-
         private void Reset() => FetchComponents();
 
         private void Awake() => FetchComponents();

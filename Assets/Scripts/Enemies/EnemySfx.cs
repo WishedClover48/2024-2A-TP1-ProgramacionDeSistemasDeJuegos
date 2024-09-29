@@ -7,8 +7,8 @@ namespace Enemies
     public class EnemySfx : MonoBehaviour
     {
         [SerializeField] private AudioPlayer audioSourcePrefab;
-        [SerializeField] private RandomContainer<AudioClipData> spawnClips;
-        [SerializeField] private RandomContainer<AudioClipData> explosionClips;
+        [SerializeField] private SFX_SO spawnClips;
+        [SerializeField] private SFX_SO explosionClips;
         private Enemy _enemy;
 
         private void Reset() => FetchComponents();
@@ -17,7 +17,7 @@ namespace Enemies
     
         private void FetchComponents()
         {
-            // "a ??= b" is equivalent to "if(a == null) a = b" 
+            // "a ??= b" is equivalent to "if(a == null) a = b"
             _enemy ??= GetComponent<Enemy>();
         }
         
@@ -40,12 +40,12 @@ namespace Enemies
 
         private void HandleDeath()
         {
-            PlayRandomClip(explosionClips, audioSourcePrefab);
+            PlayRandomClip(explosionClips._soundEffects, audioSourcePrefab);
         }
 
         private void HandleSpawn()
         {
-            PlayRandomClip(spawnClips, audioSourcePrefab);
+            PlayRandomClip(spawnClips._soundEffects, audioSourcePrefab);
         }
 
         private void PlayRandomClip(RandomContainer<AudioClipData> container, AudioPlayer sourcePrefab)
