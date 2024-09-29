@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28469c5a831215b40b8c625fcb4fe170, type: 3}
   m_Name: DeathSound
   m_EditorClassIdentifier: 
-  _particleEffects:
+  _soundEffects:
     candidates:
     - <Loop>k__BackingField: 0
       <Clip>k__BackingField: {fileID: 8300000, guid: ea3b8c3505dcbe4438bf7c5dcd6c36b6, type: 3}

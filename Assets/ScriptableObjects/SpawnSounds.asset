@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28469c5a831215b40b8c625fcb4fe170, type: 3}
   m_Name: SpawnSounds
   m_EditorClassIdentifier: 
-  _particleEffects:
+  _soundEffects:
     candidates:
     - <Loop>k__BackingField: 0
       <Clip>k__BackingField: {fileID: 8300000, guid: 2dc572a8624f17e4689e2bb1954b8cc1, type: 3}

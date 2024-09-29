@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 7245034872270020510}
+  enemyPrefab: {fileID: 3981897339790278196}
 --- !u!114 &5102552170310831788
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ namespace Enemies
     public class Enemy : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private GameObject enemyPrefab;
         public event Action OnSpawn = delegate { };
         public event Action OnDeath = delegate { };
         BuildingManager buildingManager;
@@ -16,6 +17,7 @@ namespace Enemies
         Vector3 destination;
         int maxHP = 100;
         HealthPoints healthPoints = new HealthPoints(100);
+        private int damage = 5;
 
         private void Reset() => FetchComponents();
 
@@ -73,13 +75,15 @@ namespace Enemies
             healthPoints.RemoveOnDeath(Die);
             if(townCenter.HealthPoints != null) 
             { 
-                townCenter.HealthPoints.TakeDamage(20);
+                townCenter.HealthPoints.TakeDamage(damage);
             }
             OnDeath();
             Destroy(gameObject);
         }
-    
-
-    
+        public object Clone(Vector3 position, Quaternion rotation)
+        {
+            GameObject clonedObject = Instantiate(gameObject, position, rotation);
+            return clonedObject;
+        }
     }
 }

@@ -1696,6 +1696,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 6512775222602955904, guid: a368a0d99f3fb7c4cadb882e3ded1d2d, type: 3}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: spawnsPerPeriod
       value: 2
       objectReference: {fileID: 0}
@@ -11796,6 +11800,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 6512775222602955904, guid: a368a0d99f3fb7c4cadb882e3ded1d2d, type: 3}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: spawnsPerPeriod
       value: 2
       objectReference: {fileID: 0}
@@ -16280,6 +16288,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 6512775222602955904, guid: a368a0d99f3fb7c4cadb882e3ded1d2d, type: 3}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: spawnsPerPeriod
       value: 2
       objectReference: {fileID: 0}
@@ -16939,12 +16951,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: period
-      value: 1.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: frequency
-      value: 0
+      value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
+      propertyPath: enemyPrefab
+      value: 
+      objectReference: {fileID: 6512775222602955904, guid: a368a0d99f3fb7c4cadb882e3ded1d2d, type: 3}
     - target: {fileID: 4428820282715910064, guid: 413d672c8588bf144b7289d4d3f7533a, type: 3}
       propertyPath: spawnsPerPeriod
       value: 2

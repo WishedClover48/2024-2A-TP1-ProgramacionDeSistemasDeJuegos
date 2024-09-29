@@ -1,10 +1,12 @@
+using Enemies;
 using System;
 using System.Collections;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject characterPrefab;
+    [SerializeField] private Enemy enemyPrefab;
+    [SerializeField] private GameObject prefab;
     [SerializeField] private int spawnsPerPeriod = 10;
     [SerializeField] private float frequency = 30;
     [SerializeField] private float period = 0;
@@ -20,7 +22,8 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < spawnsPerPeriod; i++)
             {
-                Instantiate(characterPrefab, transform.position, transform.rotation);
+                Enemy clonedObject = enemyPrefab.Clone(transform.position, transform.rotation) as Enemy;
+                //Instantiate(prefab, transform.position, transform.rotation);
             }
 
             yield return new WaitForSeconds(period);

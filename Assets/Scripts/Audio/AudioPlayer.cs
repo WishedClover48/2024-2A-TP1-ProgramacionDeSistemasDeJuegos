@@ -52,5 +52,11 @@ namespace Audio
             yield return new WaitForSeconds(Mathf.Max(seconds, 0));
             gameObject.SetActive(false);
         }
+
+        public AudioPlayer Clone(Vector3 position, Quaternion rotation)
+        {
+            AudioPlayer clonedObject = Instantiate(this, position, rotation);
+            return clonedObject;
+        }
     }
 }
