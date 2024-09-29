@@ -40,7 +40,6 @@ public class Building : MonoBehaviour, IBuilding
             timer -= Time.deltaTime;
             yield return null;
         }
-        Debug.Log("Ahora voy a habilitarme");
         meshRenderer.enabled=true;
         OnEnable();
     }

@@ -8,7 +8,7 @@ public class BuildingManager : MonoBehaviour
     private GameObject[] _buildingGameObjects;
     private List<Building> _buildingScripts = new List<Building>();
 
-    public void Start() 
+    public void OnEnable() 
     {
         ServiceLocator.Instance.RegisterService(this);
         _buildingGameObjects = GameObject.FindGameObjectsWithTag("TownCenter");
