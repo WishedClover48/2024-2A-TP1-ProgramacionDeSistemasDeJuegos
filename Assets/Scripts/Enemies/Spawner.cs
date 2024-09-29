@@ -28,9 +28,9 @@ public class Spawner : MonoBehaviour
             {
                 // Randomize spawn positions within a certain range around the spawner in order to avoid enemies getting stuck.
                 Vector3 randomOffset = new Vector3(
-                    UnityEngine.Random.Range(-5f, 5f),
+                    UnityEngine.Random.Range(-1f, 1f),
                     0,  // Keep the Y position consistent
-                    UnityEngine.Random.Range(-5f, 5f)
+                    UnityEngine.Random.Range(-1f, 1f)
                 );
 
                 Vector3 spawnPosition = transform.position + randomOffset;

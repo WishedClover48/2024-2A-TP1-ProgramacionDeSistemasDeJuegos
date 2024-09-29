@@ -6,14 +6,19 @@ namespace Enemies
     [RequireComponent(typeof(Enemy))]
     public class EnemySfx : MonoBehaviour
     {
-        [SerializeField] private AudioPlayer audioSourcePrefab;
         [SerializeField] private SFX_SO spawnClips;
         [SerializeField] private SFX_SO explosionClips;
         private Enemy _enemy;
+        private AudioPlayer audioPlayer;
+        private AudioPlayerPool audioPlayerPool;
 
         private void Reset() => FetchComponents();
 
-        private void Awake() => FetchComponents();
+        private void Awake() 
+        {
+            FetchComponents();
+            audioPlayerPool = ServiceLocator.Instance.GetService<AudioPlayerPool>();
+        }
     
         private void FetchComponents()
         {
@@ -23,11 +28,6 @@ namespace Enemies
         
         private void OnEnable()
         {
-            if (!audioSourcePrefab)
-            {
-                Debug.LogError($"{nameof(audioSourcePrefab)} is null!");
-                return;
-            }
             _enemy.OnSpawn += HandleSpawn;
             _enemy.OnDeath += HandleDeath;
         }
@@ -40,25 +40,26 @@ namespace Enemies
 
         private void HandleDeath()
         {
-            PlayRandomClip(explosionClips._soundEffects, audioSourcePrefab);
+            PlayRandomClip(explosionClips._soundEffects);
         }
 
         private void HandleSpawn()
         {
-            PlayRandomClip(spawnClips._soundEffects, audioSourcePrefab);
+            PlayRandomClip(spawnClips._soundEffects);
         }
 
-        private void PlayRandomClip(RandomContainer<AudioClipData> container, AudioPlayer sourcePrefab)
+        private void PlayRandomClip(RandomContainer<AudioClipData> container)
         {
             if (!container.TryGetRandom(out var clipData))
                 return;
             
-            SpawnSource(sourcePrefab).Play(clipData);
+            audioPlayer = SpawnSource();
+            audioPlayer.Play(clipData);
         }
 
-        private AudioPlayer SpawnSource(AudioPlayer prefab)
+        private AudioPlayer SpawnSource()
         {
-            return audioSourcePrefab.Clone(transform.position, transform.rotation) as AudioPlayer;
+            return audioPlayerPool.GetFromPool(transform.position, transform.rotation);
         }
 
     }
