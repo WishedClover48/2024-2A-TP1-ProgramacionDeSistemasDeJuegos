@@ -6,11 +6,16 @@ namespace Enemies
     public class EnemyVfx : MonoBehaviour
     {
         private Enemy _enemy;
+        private ParticleSystem prefab;
         [SerializeField] private VFX_SO deathPrefabs;
+
 
         private void Reset() => FetchComponents();
 
-        private void Awake() => FetchComponents();
+        private void Awake()
+        {
+            FetchComponents();
+        }
 
         private void FetchComponents()
         {
@@ -29,9 +34,10 @@ namespace Enemies
 
         private void HandleDeath()
         {
-            if(!deathPrefabs._particleEffects.TryGetRandom(out var prefab))
+            if(!deathPrefabs._particleEffects.TryGetRandom(out prefab))
                 return;
             var vfx = Instantiate(prefab, transform.position, transform.rotation);
+            // Set stop action to trigger the callback when the particle system stops
             var mainModule = vfx.main;
             mainModule.stopAction = ParticleSystemStopAction.Destroy;
         }

@@ -59,7 +59,7 @@ namespace Enemies
 
         private AudioPlayer SpawnSource()
         {
-            return audioPlayerPool.GetFromPool(transform.position, transform.rotation);
+            return audioPlayerPool.GetFromPool();
         }
 
     }

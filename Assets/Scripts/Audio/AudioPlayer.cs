@@ -8,6 +8,7 @@ namespace Audio
     {
         [SerializeField] private OnFinishAction finishAction;
         private AudioSource _source;
+        private AudioPlayerPool audioPlayerPool;
         public AudioSource Source
         {
             get
@@ -23,7 +24,13 @@ namespace Audio
             Destroy,
             Deactivate,
         }
-        
+
+        private void Awake()
+        {
+            audioPlayerPool = ServiceLocator.Instance.GetService<AudioPlayerPool>();
+
+        }
+
         public void Play(AudioClipData data)
         {
             Source.loop = data.Loop;
@@ -31,31 +38,20 @@ namespace Audio
             Source.outputAudioMixerGroup = data.Group;
             Source.Play();
             var clipLength = data.Clip.length;
-            if (finishAction == OnFinishAction.Destroy)
-            {
-                StartCoroutine(DestroySelfIn(clipLength));
-            }
-            else if (finishAction == OnFinishAction.Deactivate)
-            {
-                StartCoroutine(DeactivateIn(clipLength));
-            }
-        }
+            StartCoroutine(DeactivateIn(clipLength));
 
-        private IEnumerator DestroySelfIn(float seconds)
-        {
-            yield return new WaitForSeconds(Mathf.Max(seconds, 0));
-            Destroy(gameObject);
         }
         
         private IEnumerator DeactivateIn(float seconds)
         {
             yield return new WaitForSeconds(Mathf.Max(seconds, 0));
+            audioPlayerPool.ReturnToPool(this);
             gameObject.SetActive(false);
         }
 
-        public AudioPlayer Clone(Vector3 position, Quaternion rotation)
+        public AudioPlayer Clone()
         {
-            AudioPlayer clonedObject = Instantiate(this, position, rotation);
+            AudioPlayer clonedObject = Instantiate(this);
             return clonedObject;
         }
     }

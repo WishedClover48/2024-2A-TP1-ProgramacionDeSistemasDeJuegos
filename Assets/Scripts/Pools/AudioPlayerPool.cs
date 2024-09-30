@@ -16,7 +16,7 @@ public class AudioPlayerPool : MonoBehaviour
     }
 
     // Method to get an object from the pool
-    public AudioPlayer GetFromPool(Vector3 position, Quaternion rotation)
+    public AudioPlayer GetFromPool()
     {
         // Check if the prefab is assigned before using it
         if (audioPlayerPrefab == null)
@@ -35,7 +35,7 @@ public class AudioPlayerPool : MonoBehaviour
         else
         {
             // If the pool is empty, create a new object
-            obj = Instantiate(audioPlayerPrefab, position, rotation);
+            obj = audioPlayerPrefab.Clone();
 
             // Check if the instantiation was successful
             if (obj == null)
@@ -45,16 +45,11 @@ public class AudioPlayerPool : MonoBehaviour
             }
         }
 
-        // Set the object's position and rotation before returning it
-        obj.transform.position = position;
-        obj.transform.rotation = rotation;
-
         // Enable the object before returning it
+        obj.gameObject.transform.SetParent(transform);
         obj.gameObject.SetActive(true);
-
         return obj;
     }
-
     // Method to return an object back to the pool
     public void ReturnToPool(AudioPlayer obj)
     {
@@ -63,8 +58,7 @@ public class AudioPlayerPool : MonoBehaviour
             Debug.LogError("Cannot return a null object to the pool!");
             return;
         }
-
-        obj.gameObject.SetActive(false);  // Disable the object
+        // The object disables itself so there is no need to do it here.
         pool.Enqueue(obj);  // Add it back to the pool
     }
 }
