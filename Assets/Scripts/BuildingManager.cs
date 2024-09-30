@@ -11,7 +11,6 @@ public class BuildingManager : MonoBehaviour
     public void OnEnable() 
     {
         ServiceLocator.Instance.RegisterService(this);
-        //_buildingGameObjects = GameObject.FindGameObjectsWithTag("TownCenter");
         foreach (GameObject building in _buildingGameObjects) 
         {
             Building buildingScript = building.GetComponent<Building>();
